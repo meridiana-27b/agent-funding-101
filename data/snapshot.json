@@ -1,0 +1,140 @@
+{
+ "generatedAtS": 1789251063.1771758,
+ "generatedAt": "2026-09-12 22:11 UTC",
+ "grantsScanned": 700,
+ "livePrograms": [
+  {
+   "id": "6992785dfb7e884efacadb1e",
+   "title": "Circle 2026 Cohort 2",
+   "reward": 100000,
+   "token": "USDC",
+   "apps": 695,
+   "payoutType": "milestones",
+   "reviewType": "voting",
+   "deadlineS": null,
+   "accepting": true,
+   "workspace": "Circle Grants Program",
+   "networks": [
+    "chain_10"
+   ],
+   "link": null
+  },
+  {
+   "id": "697c13a5fb7e884efa260924",
+   "title": "protocol integrations and privacy ZK-on sui",
+   "reward": 95000,
+   "token": "USD",
+   "apps": 1,
+   "payoutType": "milestones",
+   "reviewType": "voting",
+   "deadlineS": null,
+   "accepting": true,
+   "workspace": "protocol integrations and privacy",
+   "networks": [
+    "chain_10"
+   ],
+   "link": null
+  },
+  {
+   "id": "6979e33e96f32ac6ceca7d4f",
+   "title": "Evidence verification tooling",
+   "reward": 30000,
+   "token": "USD",
+   "apps": 3,
+   "payoutType": "in_one_go",
+   "reviewType": "voting",
+   "deadlineS": null,
+   "accepting": true,
+   "workspace": "Evidence verification tooling",
+   "networks": [
+    "chain_10"
+   ],
+   "link": null
+  },
+  {
+   "id": "695f9f4796f32ac6ce00edab",
+   "title": "Yield aggregation and settlement on Arbitrum",
+   "reward": 28000,
+   "token": "USD",
+   "apps": 3,
+   "payoutType": "milestones",
+   "reviewType": "rubrics",
+   "deadlineS": null,
+   "accepting": true,
+   "workspace": "Yield aggregation and settlement on Arbitrum",
+   "networks": [
+    "chain_10"
+   ],
+   "link": null
+  },
+  {
+   "id": "6a20159722bc41779bac6752",
+   "title": "Agent Launch Flash Grants",
+   "reward": 10000,
+   "token": "USD",
+   "apps": 47,
+   "payoutType": "in_one_go",
+   "reviewType": "rubrics",
+   "deadlineS": null,
+   "accepting": true,
+   "workspace": "Agent Launch Flash Grants",
+   "networks": [
+    "chain_10"
+   ],
+   "link": null
+  },
+  {
+   "id": "69ba68d97f3c29a49571ac50",
+   "title": "AId",
+   "reward": 10000,
+   "token": "USD",
+   "apps": 0,
+   "payoutType": "milestones",
+   "reviewType": "",
+   "deadlineS": null,
+   "accepting": true,
+   "workspace": "AId",
+   "networks": [
+    "chain_10"
+   ],
+   "link": null
+  },
+  {
+   "id": "699c9d3bfb7e884efa1ffc55",
+   "title": "Educational content grant",
+   "reward": 1600,
+   "token": "USD",
+   "apps": 2,
+   "payoutType": "in_one_go",
+   "reviewType": "",
+   "deadlineS": null,
+   "accepting": true,
+   "workspace": "Educational content grant ",
+   "networks": [
+    "chain_10"
+   ],
+   "link": null
+  },
+  {
+   "id": "6a302954f9f18823355227c4",
+   "title": "Circle 2026 Cohort 2",
+   "reward": 1000,
+   "token": "USD",
+   "apps": 1,
+   "payoutType": "milestones",
+   "reviewType": "voting",
+   "deadlineS": null,
+   "accepting": true,
+   "workspace": "Circle 2026 Cohort 2",
+   "networks": [
+    "chain_10"
+   ],
+   "link": null
+  }
+ ],
+ "sampleProgramStates": {
+  "approved": 5,
+  "submitted": 41
+ },
+ "source": "Questbook public grants API (no credentials required)"
+}
