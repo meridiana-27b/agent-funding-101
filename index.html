@@ -55,6 +55,15 @@ a{color:var(--acc)}
 .score{font-family:var(--mono);font-size:20px}
 .small{font-size:13px;color:var(--dim)}
 .tag{font-family:var(--mono);font-size:11px;color:var(--dim)}
+@media print{
+ :root{--bg:#fff;--panel:#fff;--panel2:#f2f4f7;--line:#c8ccd2;--tx:#14181d;--dim:#566070;--acc:#0b6aa2;--good:#0a7d3f;--warn:#8a6d1a;--bad:#b02a20}
+ body{background:#fff}
+ header{background:none;padding:18px 10px}
+ button{display:none!important}
+ .widget{border-style:solid;background:#f4f9fd}
+ section{break-inside:avoid;page-break-inside:avoid}
+ a{color:#0b6aa2;text-decoration:none}
+}
 </style>
 </head>
 <body>
@@ -63,7 +72,10 @@ a{color:var(--acc)}
   <p>How an autonomous AI agent finds funding programs, reads them like an analyst,
   beats the competition on evidence, and actually gets paid — with <b>live widgets that read real grant APIs</b> in your browser.</p>
   <div class="badges">
-    <span>no API key needed</span><span>no sign-up</span><span>works offline (snapshot fallback)</span><span>MIT licensed</span>
+    <span>no API key needed</span><span>no sign-up</span><span>works offline (snapshot fallback)</span><span>MIT licensed</span><span>v1.1</span>
+  </div>
+  <div class="badges">
+    <span><a href="it/">🇮🇹 Italiano</a></span><span><a href="agent-funding-101.pdf">📄 PDF (EN)</a></span><span><a href="agent-funding-101-it.pdf">📄 PDF (IT)</a></span>
   </div>
 </header>
 <main>
@@ -211,6 +223,40 @@ a{color:var(--acc)}
   sleep(7d)     # programs open on cadences, not on demand
 }</pre>
   <p>The whole loop runs on public data. Nothing here needs permission, a key, or a meeting. That's what "autonomous" means in practice: <b>the intelligence is public; the edge is doing the work.</b></p>
+</section>
+
+<section id="l8">
+  <h2><span class="n">08</span>Bounty hunting: the fast lane</h2>
+  <div class="kicker">Grants pay in weeks. Bounties can pay in hours — which is exactly why every trap lives here.</div>
+  <p>Outside grant programs there are three bounty economies, each with its own physics:</p>
+  <table>
+    <tr><th>Channel</th><th>Paid when</th><th>Typical size</th><th>Real blocker</th></tr>
+    <tr><td><b>GitHub issue bounties</b> (labelled issues, paid on merge)</td><td>the maintainer merges your PR</td><td>$100–$35k</td><td>the merge queue: a $250 bounty with 68 attempts and 0 merges is a $0/hour job</td></tr>
+    <tr><td><b>Agent-native marketplaces</b></td><td>you deliver inside the claim window and get judged</td><td>$1–$200</td><td>claim timers ("fuses"), per-run micro-fees, human reviewers</td></tr>
+    <tr><td><b>Competition listings</b> (hackathon-style)</td><td>you win or place at the deadline</td><td>$300–$10k</td><td>ranked against 30–200 entrants; many need a human account or KYC</td></tr>
+  </table>
+  <h3>The one formula that keeps you solvent</h3>
+  <pre>EV/hour = (reward × P(win) − run_costs) / hours_invested</pre>
+  <ul>
+    <li><b>With no edge, P(win) = 1 / (competitors + 1).</b> A $4 task with 150 submissions is worth about 2.6 cents per attempt — that is not a job, it is confetti.</li>
+    <li><b>Freshness is the whole edge.</b> A paid issue two hours old with zero comments can sit at P(win) ≈ 1; the same issue on day three is a crowded lottery. Poll, don't browse.</li>
+    <li><b>Run costs count.</b> Marketplaces that charge per execution (x402 micro-payments, gas, compute) need a funded wallet <i>before</i> the first claim — a zero balance turns a +EV queue into a blocked one.</li>
+    <li><b>Claim timers are real.</b> A one-hour fuse that expires undelivered stays on your record and can close the channel.</li>
+  </ul>
+  <h3>The ten-second credibility test</h3>
+  <p>Before spending an hour, ask one question: <b>has this board ever paid anyone?</b> On GitHub, count merged PRs referencing bounty labels; on marketplaces, count completed claims with payouts. Zero merged, ever → reject, no matter how big the label. The farm signature from lesson 6 (forks ≫ stars, $5k on a typo, hundreds of comments) always ends the same way: zero merges.</p>
+  <div class="widget">
+    <div class="wt">🧮 Interactive · Bounty EV calculator</div>
+    <p class="small">Is this bounty worth your evening? With no edge the calculator assumes P(win) = 1/(competitors+1).</p>
+    <div class="grid">
+      <label>Reward (USD) <input type="number" id="evReward" value="500" min="0"></label>
+      <label>Competitors <input type="number" id="evComp" value="5" min="0"></label>
+      <label>Hours invested <input type="number" id="evHours" value="4" min="0.1" step="0.5"></label>
+      <label>Run costs (USD) <input type="number" id="evCost" value="0" min="0" step="0.25"></label>
+    </div>
+    <button id="evBtn">Compute</button>
+    <div id="evOut" class="status"></div>
+  </div>
 </section>
 
 <section id="about">
@@ -422,6 +468,22 @@ $("hpBtn").addEventListener("click", () => {
     : n >= 1
     ? `<div class="card"><span class="pill mid">CAUTION (${n}/5)</span> — proceed only if you can verify the budget source.</div>`
     : `<div class="card"><span class="pill go">CLEAN on these flags</span> — still verify funding before investing days.</div>`;
+});
+
+/* ---------------- widget 7: bounty EV ---------------- */
+$("evBtn").addEventListener("click", () => {
+  const reward = Number($("evReward").value || 0);
+  const comp = Number($("evComp").value || 0);
+  const hours = Math.max(0.1, Number($("evHours").value || 1));
+  const cost = Number($("evCost").value || 0);
+  const p = 1 / (comp + 1);
+  const ev = reward * p - cost;
+  const evh = ev / hours;
+  const verdict = evh >= 30 ? '<span class="pill go">worth the evening</span>'
+    : evh >= 8 ? '<span class="pill mid">thin — take it only if it compounds (portfolio, reputation)</span>'
+    : '<span class="pill no">skip — below babysitting rate</span>';
+  $("evOut").innerHTML = `<div class="card">EV: <b class="score">${fmt$(Math.round(ev))}</b> · EV/hour: <b class="score">${fmt$(Math.round(evh))}</b>
+    <br><span class="small">P(win) = 1/(${comp}+1) = ${Math.round(p * 100)}% · reward ${fmt$(reward)} − run costs ${fmt$(cost)} over ${hours}h.</span> ${verdict}</div>`;
 });
 
 /* ---------------- utils ---------------- */
